@@ -20,10 +20,17 @@ public class AgentHomeConsole{
 
         FlightJDBC.addFlight(new Flight(flightNo, departureCity, arrivalCity));
     }
-
+    
     public static void removeFlight(){
-        // TODO: remove a flight console interaction
+        System.out.println();
+        System.out.println("Enter the flight details:-\n");
+        System.out.print("Enter the flight number: ");
+        int flightNo = scn.nextInt();
+        scn.nextLine();
+
+        FlightJDBC.removeFlight(flightNo);
     }
+
     public static void viewBookings(){
         // TODO: view all the bookings console interaction
     }
@@ -41,25 +48,36 @@ public class AgentHomeConsole{
         Scanner scn = new Scanner(System.in);
 
         System.out.println();
-        System.out.println("Welcome Agent " + agent.getUsername());
+        System.out.println("\n\nWelcome Agent " + agent.getUsername());
         
+        System.out.println();
         System.out.println("Select from the options:- ");
         System.out.println("1. Add flight");
         System.out.println("2. Remove flight");
         System.out.println("3. View Schedule");
+        System.out.println("4. Logout");
 
         System.out.print("Enter your option: ");
         int option = scn.nextInt();
-        switch(option){
-            case 1:
-                addFlight();
-                break;
-            case 2:
-                removeFlight();
-                break;
-            case 3:
-                viewBookings();
-                break;
+
+        boolean loggedIn = true;
+        while(loggedIn){
+            switch(option){
+                case 1:
+                    addFlight();
+                    break;
+                case 2:
+                    removeFlight();
+                    break;
+                case 3:
+                    viewBookings();
+                    break;
+                case 4:
+                    loggedIn = false;
+                    break;
+                default:
+                    System.out.println("Invalid option. Try again...");
+            }
         }
     }
 }
