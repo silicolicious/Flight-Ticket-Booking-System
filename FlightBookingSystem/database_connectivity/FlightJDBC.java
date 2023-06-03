@@ -60,6 +60,32 @@ public class FlightJDBC{
         }
     }
 
+    public static void searchFlights(){
+        if(connection == null) 
+        connection = DatabaseConnection.getConnection();
+            
+        if(connection != null){
+            try{
+                String query = "SELECT * FROM Flight";
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(query);   
+                System.out.println("Flight Number\tDeparture\tArrival");
+                while(resultSet.next()) {
+                    int flightNo = resultSet.getInt("flightNo");
+                    String departureCity = resultSet.getString("departureCity");
+                    String arrivalCity = resultSet.getString("arrivalCity");
+                    System.out.println(flightNo + "\t" + departureCity + "\t" + arrivalCity);
+                }
+            } catch(Exception e){
+                System.out.println(incorrectQuery);
+                e.printStackTrace();
+            }
+        }
+        else{
+            System.out.println(connectionError);
+        }
+    }
+
     public static void addSchedule(){
         // TODO: add a flight schedule
         {
