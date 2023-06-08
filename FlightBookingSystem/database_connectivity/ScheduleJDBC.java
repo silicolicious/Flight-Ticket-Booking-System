@@ -16,10 +16,9 @@ public class ScheduleJDBC{
         
         if(connection != null){
             try {
-                String query = "INSERT INTO Schedule VALUES (?, ?, ?, ?, ?)";
+                String query = "INSERT INTO Schedule (flightNo, startTime, endTime, availableSeats) VALUES (?, ?, ?, ?)";
                 
                 PreparedStatement statement = connection.prepareStatement(query);
-                statement.setInt(1, schedule.getScheduleId());
                 statement.setInt(2, schedule.getFlight());
                 statement.setString(3, schedule.getStartTime().toString());
                 statement.setString(4, schedule.getEndTime().toString());

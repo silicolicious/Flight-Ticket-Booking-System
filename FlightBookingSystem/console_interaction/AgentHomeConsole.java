@@ -32,9 +32,12 @@ public class AgentHomeConsole{
 
         FlightJDBC.removeFlight(flightNo);
     }
-    
-    public static void viewBookings(){
-        // TODO: view all the bookings console interaction
+
+    public static void viewFlights(){
+        System.out.println();
+        scn.nextLine();
+
+        FlightJDBC.searchFlights();
     }
 
     public static void addSchedule(){
@@ -43,14 +46,12 @@ public class AgentHomeConsole{
         
         System.out.print("Enter the flight number: ");
         int flightNo = scn.nextInt();
-
+        
         if(!FlightJDBC.checkFlight(flightNo)){
             System.out.println("\n\tThe flight is currently unavailable!");
             return;
         }
 
-        System.out.print("Enter the schedule number: ");
-        int scheduleId = scn.nextInt();
         scn.nextLine();
         System.out.print("Enter the departure time:(\"yyyy-MM-dd HH:mm:ss\") ");
         Timestamp startTime = TimeFormat.stringToTimestamp(scn.nextLine());
@@ -59,18 +60,29 @@ public class AgentHomeConsole{
         System.out.print("Enter the available seats: ");
         int availableSeats = scn.nextInt();
     
-        ScheduleJDBC.addSchedule(new Schedule(scheduleId, flightNo, startTime, endTime, availableSeats));
-    }
-    public static void removeSchedule(){
-        // TODO: remove a flight schedule console interaction
-    }
-    public static void viewSchedule(){
-        // TODO: view all the schedule console interaction
+        ScheduleJDBC.addSchedule(new Schedule(flightNo, startTime, endTime, availableSeats));
     }
 
+    public static void removeSchedule(){
+        System.out.println();
+        System.out.println("Enter the schedule details:-\n");
+        System.out.print("Enter the schedule number: ");
+        int scheduleId = scn.nextInt();
+        ScheduleJDBC.removeSchedule(scheduleId);
+    }
+
+    public static void viewSchedule(){
+        System.out.println();
+        ScheduleJDBC.viewSchedule();
+    }
+
+    public static void viewBookings(){
+        // TODO: view all the bookings console interaction
+    }
+    
     public static void runAgentConsole(Agent agent){
         Scanner scn = new Scanner(System.in);
-
+        
         System.out.println();
         System.out.println("\n\nWelcome Agent " + agent.getUsername());
 
@@ -80,11 +92,12 @@ public class AgentHomeConsole{
             System.out.println("Select from the options:- ");
             System.out.println("1. Add flight");
             System.out.println("2. Remove flight");
-            System.out.println("3. View Schedule");
+            System.out.println("3. View flights");
             System.out.println("4. Add Schedule");
             System.out.println("5. Remove Schedule");
             System.out.println("6. View Schedule");
-            System.out.println("7. Logout");
+            System.out.println("7. View Bookings");
+            System.out.println("8. Logout");
 
             System.out.print("Enter your option: ");
             int option = scn.nextInt();
@@ -96,7 +109,7 @@ public class AgentHomeConsole{
                     removeFlight();
                     break;
                 case 3:
-                    viewBookings();
+                    viewFlights();
                     break;
                 case 4:
                     addSchedule();
@@ -108,6 +121,9 @@ public class AgentHomeConsole{
                     viewSchedule();
                     break;
                 case 7:
+                    viewBookings();
+                    break;
+                case 8:
                     loggedIn = false;
                     break;
                 default:

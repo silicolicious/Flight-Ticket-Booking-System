@@ -2,25 +2,18 @@ package model;
 import java.sql.Timestamp;
 
 public class Schedule{
-    int scheduleId;
     int flight;
     Timestamp startTime;
     Timestamp endTime;
     int availableSeats;
 
-    public Schedule(int scheduleId, int flightNo, 
+    public Schedule(int flightNo, 
             Timestamp startTime, Timestamp endTime, int availableSeats){
-        this.scheduleId = scheduleId;
         this.flight = flightNo;
         this.startTime = startTime;
         this.endTime = endTime;
         this.availableSeats = availableSeats;
     }
-
-    public void setScheduleId(int scheduleId) {
-        this.scheduleId = scheduleId;
-    }
-
     public void setFlight(int flight) {
         this.flight = flight;
     }
@@ -35,10 +28,6 @@ public class Schedule{
 
     public void setAvailableSeats(int availableSeats) {
         this.availableSeats = availableSeats;
-    }
-
-    public int getScheduleId() {
-        return scheduleId;
     }
 
     public int getFlight() {
@@ -59,7 +48,7 @@ public class Schedule{
 
     @Override
     public String toString() {
-        return "Schedule [scheduleId=" + scheduleId + ", flight=" + flight + ", startTime=" + startTime + ", endTime="
+        return "Schedule [flight=" + flight + ", startTime=" + startTime + ", endTime="
                 + endTime + ", availableSeats=" + availableSeats + "]";
     }
 }

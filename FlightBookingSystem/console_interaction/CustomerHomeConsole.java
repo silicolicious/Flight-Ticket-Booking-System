@@ -1,15 +1,27 @@
 package console_interaction;
 import java.util.Scanner;
 
+import database_connectivity.FlightJDBC;
 import model.*;
 
 public class CustomerHomeConsole{
-    public static void searchFlights(){
-        // TODO: search flight console interaction
+    static Scanner scn = new Scanner(System.in);
+    static Customer currentCustomer;
 
+    public static void searchFlights(){
+        System.out.println();
+        FlightJDBC.searchFlights();
     }
+
     public static void bookTickets(){
-        // TODO: book ticket console interaction
+        System.out.println();
+        System.out.println("Enter the details:-\n");
+        System.out.print("Enter the schedule ID: ");
+        int scheduleId = scn.nextInt();
+        System.out.print("Enter the number of tickets: ");
+        int noOfTickets = scn.nextInt();
+
+        
     }
     public static void viewMyBookings(){
         // TODO: view user bookings console interaction
@@ -17,9 +29,8 @@ public class CustomerHomeConsole{
 
 
     public static void runCustomerConsole(Customer customer) {
-        Scanner scn = new Scanner(System.in);
-
         System.out.println();
+        currentCustomer = customer;
         System.out.println("\n\nWelcome Customer " + customer.getUsername());
         
         System.out.println();
