@@ -77,7 +77,8 @@ public class AgentHomeConsole{
     }
 
     public static void viewBookings(){
-        // TODO: view all the bookings console interaction
+        System.out.println();
+        BookingJDBC.viewAllBookings();
     }
     
     public static void runAgentConsole(Agent agent){
