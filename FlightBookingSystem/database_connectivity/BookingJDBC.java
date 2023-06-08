@@ -1,6 +1,9 @@
 package database_connectivity;
 
 import java.sql.*;
+
+import com.mysql.cj.xdevapi.Result;
+
 import model.*;
 
 public class BookingJDBC {
@@ -9,12 +12,96 @@ public class BookingJDBC {
     
     static Connection connection = null;
 
+    private static boolean reserveSeats(Booking booking){
+        if(connection == null) 
+            connection = DatabaseConnection.getConnection();
+        
+        if(connection != null){
+            try {
+                String query = "SELECT availableSeats FROM Schedule WHERE scheduleId = " + booking.getScheduleId();
+                
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(query);   
+                if(resultSet.next()){
+                    int availableSeats = resultSet.getInt("availableSeats");
+                    if(availableSeats >= booking.getNoOfTickets()){
+                        int remainingSeats = availableSeats - booking.getNoOfTickets();
+                        String query2 = "UPDATE Schedule SET availableSeats = " + remainingSeats + " WHERE scheduleId = " + booking.getScheduleId();
+                        Statement statement2 = connection.createStatement();
+                        int rowsUpdated = statement2.executeUpdate(query2);   
+                        if(rowsUpdated > 0)
+                            return true;
+                        else
+                            return false;
+                    }
+                    else{
+                        return false;
+                    }
+                }
+            } catch (SQLException e) {
+                System.out.println(incorrectQuery);
+                e.printStackTrace();
+                return false;
+            }
+        }
+        else{
+            System.out.println(connectionError);
+        }
+        return false;
+    }
+
+    private static boolean unreserveSeats(int bookingId){
+        if(connection == null) 
+            connection = DatabaseConnection.getConnection();
+        
+        if(connection != null){
+            try {
+                String query = "SELECT * FROM Booking WHERE bookingId = " + bookingId;
+                
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(query);   
+                resultSet.next();
+                int noOfTickets = resultSet.getInt("noOfTickets");
+                int scheduleId = resultSet.getInt("scheduleId");
+                
+                String query2 = "SELECT availableSeats FROM Schedule where scheduleId = " + scheduleId;
+                Statement statement2 = connection.createStatement();
+                ResultSet resultSet2 = statement2.executeQuery(query2); 
+                resultSet2.next();  
+                int availableSeats = resultSet2.getInt("availableSeats");
+                int updatedSeatsCount = noOfTickets + availableSeats;
+                
+                String query3 = "UPDATE Schedule SET availableSeats = " + updatedSeatsCount + " WHERE scheduleId = " + scheduleId;
+                Statement statement3 = connection.createStatement();
+                int rowsUpdated = statement3.executeUpdate(query3);   
+                if(rowsUpdated > 0)
+                    return true;
+                else
+                    return false;
+                
+            } catch (SQLException e) {
+                System.out.println(incorrectQuery);
+                e.printStackTrace();
+                return false;
+            }
+        }
+        else{
+            System.out.println(connectionError);
+        }
+        return false;
+    }
+
     public static void addBooking(Booking booking){
         if(connection == null) 
             connection = DatabaseConnection.getConnection();
         
         if(connection != null){
             try {
+                if(!reserveSeats(booking)){
+                    System.out.println("\n\tNumber of seats available is insufficient!");
+                    return;
+                }
+
                 String query = "INSERT INTO Booking (userId, scheduleId, noOfTickets) VALUES (?, ?, ?)";
                 
                 PreparedStatement statement = connection.prepareStatement(query);
@@ -42,6 +129,11 @@ public class BookingJDBC {
         
         if(connection != null){
             try {
+                if(!unreserveSeats(bookingId)){
+                    System.out.println("\n\tCould not unreserve the seats!");
+                    return;
+                }
+
                 String query = "DELETE FROM Booking WHERE bookingId = " + bookingId;
                 
                 Statement statement = connection.createStatement();

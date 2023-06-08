@@ -30,7 +30,7 @@ public class CustomerHomeConsole{
         System.out.print("Enter the booking ID: ");
         int bookingId = scn.nextInt();
 
-        BookingJDBC.cancelBooking(bookingId);   
+        BookingJDBC.cancelBooking(bookingId);  
     }
 
     public static void viewMyBookings(){

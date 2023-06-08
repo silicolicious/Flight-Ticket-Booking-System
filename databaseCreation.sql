@@ -37,3 +37,12 @@ create table Schedule(
     availableSeats int default 60,
     foreign key (flightNo) references Flight(flightNo)
 );
+
+create table Booking(
+	bookingId int primary key auto_increment,
+    userId int not null,
+    scheduleId int not null,
+    noOfTickets int not null,
+    foreign key (userId) references User(userId),
+    foreign key (scheduleId) references Schedule(scheduleId)
+);
