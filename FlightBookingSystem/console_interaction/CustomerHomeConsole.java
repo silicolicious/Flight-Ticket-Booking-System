@@ -1,6 +1,7 @@
 package console_interaction;
 import java.util.Scanner;
-import utils.*;
+
+import model.*;
 
 public class CustomerHomeConsole{
     public static void searchFlights(){

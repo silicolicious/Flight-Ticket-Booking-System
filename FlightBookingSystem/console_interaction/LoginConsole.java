@@ -1,7 +1,7 @@
 package console_interaction;
 import java.util.*;
 import database_connectivity.LoginJDBC;
-import utils.*;
+import model.*;
 
 public class LoginConsole {
     static void login(){

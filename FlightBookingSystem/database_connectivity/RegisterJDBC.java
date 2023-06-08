@@ -2,7 +2,7 @@ package database_connectivity;
 import java.sql.*;
 import java.util.*;
 
-import utils.*;
+import model.*;
 
 public class RegisterJDBC{
     static String successfulTransaction = "\n\tUser added successfully!";

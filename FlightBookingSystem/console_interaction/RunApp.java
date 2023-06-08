@@ -1,4 +1,5 @@
 package console_interaction;
+
 import java.util.*;
 
 public class RunApp{

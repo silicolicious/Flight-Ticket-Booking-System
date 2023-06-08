@@ -1,16 +1,15 @@
-package utils;
+package model;
 import java.sql.Timestamp;
 
-public class Schedule extends Flight{
+public class Schedule{
     int scheduleId;
     int flight;
     Timestamp startTime;
     Timestamp endTime;
     int availableSeats;
 
-    public Schedule(int flightNo, String departureCity, String arrivalCity, int scheduleId,
-            Timestamp startTime, Timestamp endTime, int availableSeats) {
-        super(flightNo, departureCity, arrivalCity);
+    public Schedule(int scheduleId, int flightNo, 
+            Timestamp startTime, Timestamp endTime, int availableSeats){
         this.scheduleId = scheduleId;
         this.flight = flightNo;
         this.startTime = startTime;

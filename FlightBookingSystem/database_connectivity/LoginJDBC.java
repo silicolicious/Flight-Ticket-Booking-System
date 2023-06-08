@@ -1,6 +1,7 @@
 package database_connectivity;
 import java.sql.*;
-import utils.*;
+
+import model.*;
 
 public class LoginJDBC{
     static String successfulLogin = "\n\tUser logged in successfully!";

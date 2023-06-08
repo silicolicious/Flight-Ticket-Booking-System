@@ -2,7 +2,7 @@ package console_interaction;
 import java.util.*;
 
 import database_connectivity.RegisterJDBC;
-import utils.*;
+import model.*;
 
 public class RegisterConsole{
     static void register(){

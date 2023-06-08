@@ -1,7 +1,7 @@
 package database_connectivity;
 import java.sql.*;
 
-import utils.Flight;
+import model.Flight;
 
 public class FlightJDBC{
     static String incorrectQuery = "\n\tDatabase query error";
@@ -59,6 +59,8 @@ public class FlightJDBC{
             System.out.println(connectionError);
         }
     }
+    
+    
 
     public static void searchFlights(){
         if(connection == null) 
@@ -69,12 +71,13 @@ public class FlightJDBC{
                 String query = "SELECT * FROM Flight";
                 Statement statement = connection.createStatement();
                 ResultSet resultSet = statement.executeQuery(query);   
-                System.out.println("Flight Number\tDeparture\tArrival");
+                System.out.println("Flight No.\tDeparture\tArrival");
                 while(resultSet.next()) {
                     int flightNo = resultSet.getInt("flightNo");
                     String departureCity = resultSet.getString("departureCity");
                     String arrivalCity = resultSet.getString("arrivalCity");
-                    System.out.println(flightNo + "\t" + departureCity + "\t" + arrivalCity);
+
+                    System.out.print(flightNo + "\t" + departureCity + "\t" + arrivalCity);
                 }
             } catch(Exception e){
                 System.out.println(incorrectQuery);
@@ -85,17 +88,28 @@ public class FlightJDBC{
             System.out.println(connectionError);
         }
     }
-
-    public static void addSchedule(){
-        // TODO: add a flight schedule
-        {
+    
+    public static boolean checkFlight(int flightNo){
+        if(connection == null) 
+            connection = DatabaseConnection.getConnection();
+            
+        if(connection != null){
+            try{
+                String query = "SELECT * FROM Flight WHERE flightNo = " + flightNo;
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(query);   
+                if(resultSet.next()) {
+                    return true;
+                }
+            } catch(Exception e){
+                System.out.println(incorrectQuery);
+                e.printStackTrace();
+                return false;
+            }
+        }
+        else{
             System.out.println(connectionError);
         }
-    }
-    public static void removeSchedule(){
-        // TODO: remove a flight schedule
-    }
-    public static void viewSchedule(){
-        // TODO: view all the schedule
+        return false;
     }
 }

@@ -1,4 +1,4 @@
-package utils;
+package model;
 
 public enum AgentRole{
     HEAD,
