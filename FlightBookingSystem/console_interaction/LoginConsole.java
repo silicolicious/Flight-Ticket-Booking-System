@@ -19,11 +19,13 @@ public class LoginConsole {
 
         if(userType == 1){
             Customer customer = (Customer)LoginJDBC.loginUser(username, password, userType);  
-            CustomerHomeConsole.runCustomerConsole(customer);
+            if(customer != null) 
+                CustomerHomeConsole.runCustomerConsole(customer);
         }
         else{
             Agent agent = (Agent)LoginJDBC.loginUser(username, password, userType);  
-            AgentHomeConsole.runAgentConsole(agent);
+            if(agent != null) 
+                AgentHomeConsole.runAgentConsole(agent);
         }
     }
 }

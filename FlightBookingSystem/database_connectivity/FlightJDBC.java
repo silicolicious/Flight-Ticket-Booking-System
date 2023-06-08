@@ -71,13 +71,13 @@ public class FlightJDBC{
                 String query = "SELECT * FROM Flight";
                 Statement statement = connection.createStatement();
                 ResultSet resultSet = statement.executeQuery(query);   
-                System.out.println("Flight No.\tDeparture\tArrival");
+                System.out.println("Flight No.   Departure   Arrival");
                 while(resultSet.next()) {
                     int flightNo = resultSet.getInt("flightNo");
                     String departureCity = resultSet.getString("departureCity");
                     String arrivalCity = resultSet.getString("arrivalCity");
 
-                    System.out.print(flightNo + "\t" + departureCity + "\t" + arrivalCity);
+                    System.out.println(flightNo + "           " + departureCity + "          " + arrivalCity);
                 }
             } catch(Exception e){
                 System.out.println(incorrectQuery);

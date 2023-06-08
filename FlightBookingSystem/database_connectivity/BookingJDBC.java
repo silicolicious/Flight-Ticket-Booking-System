@@ -45,8 +45,8 @@ public class BookingJDBC {
                 String query = "DELETE FROM Booking WHERE bookingId = " + bookingId;
                 
                 Statement statement = connection.createStatement();
-                ResultSet resultSet = statement.executeQuery(query);   
-                if(resultSet.next())
+                int rowsDeleted = statement.executeUpdate(query);   
+                if(rowsDeleted > 0)
                     System.out.println("\n\tBooking cancelled successfully!");
                 else
                     System.out.println("\n\tFailed to cancel the booking!");
@@ -76,7 +76,7 @@ public class BookingJDBC {
                     int scheduleId = resultSet.getInt("scheduleId");
                     int noOfTickets = resultSet.getInt("noOfTickets");
 
-                    System.out.print( bookingId + "\t" + userId + "\t" + scheduleId + "\t" + noOfTickets);
+                    System.out.println( bookingId + "\t" + userId + "\t" + scheduleId + "\t" + noOfTickets);
                 }
             } catch(Exception e){
                 System.out.println(incorrectQuery);
@@ -97,13 +97,13 @@ public class BookingJDBC {
                 String query = "SELECT * FROM Booking WHERE userId = " + userId;
                 Statement statement = connection.createStatement();
                 ResultSet resultSet = statement.executeQuery(query);   
-                System.out.println("Booking ID\tUser ID\tSchedule ID\tNo. Of Tickets");
+                System.out.println("Booking ID\tSchedule ID\tNo. Of Tickets");
                 while(resultSet.next()) {
                     int bookingId = resultSet.getInt("bookingId");
                     int scheduleId = resultSet.getInt("scheduleId");
                     int noOfTickets = resultSet.getInt("noOfTickets");
 
-                    System.out.print( bookingId + "\t" + scheduleId + "\t" + noOfTickets);
+                    System.out.println(bookingId + "\t" + scheduleId + "\t" + noOfTickets);
                 }
             } catch(Exception e){
                 System.out.println(incorrectQuery);

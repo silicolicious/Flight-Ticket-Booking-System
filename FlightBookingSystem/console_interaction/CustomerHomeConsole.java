@@ -1,17 +1,16 @@
 package console_interaction;
 import java.util.Scanner;
 
-import database_connectivity.BookingJDBC;
-import database_connectivity.FlightJDBC;
+import database_connectivity.*;
 import model.*;
 
 public class CustomerHomeConsole{
     static Scanner scn = new Scanner(System.in);
     static Customer currentCustomer;
 
-    public static void searchFlights(){
+    public static void viewSchedule(){
         System.out.println();
-        FlightJDBC.searchFlights();
+        ScheduleJDBC.viewSchedule();;
     }
 
     public static void bookTickets(){
@@ -45,22 +44,22 @@ public class CustomerHomeConsole{
         currentCustomer = customer;
         System.out.println("\n\nWelcome Customer " + customer.getUsername());
         
-        System.out.println();
-        System.out.println("Select from the options:- ");
-        System.out.println("1. Search flights");
-        System.out.println("2. Book tickets");
-        System.out.println("3. Cancel Booking");
-        System.out.println("4. View my bookings");
-        System.out.println("5. Logout");
-
-        System.out.print("Enter your option: ");
-        int option = scn.nextInt();
-
+        
         boolean loggedIn = true;
         while(loggedIn){
+            System.out.println();
+            System.out.println("Select from the options:- ");
+            System.out.println("1. View Flight Schedule");
+            System.out.println("2. Book tickets");
+            System.out.println("3. Cancel Booking");
+            System.out.println("4. View my bookings");
+            System.out.println("5. Logout");
+    
+            System.out.print("Enter your option: ");
+            int option = scn.nextInt();
             switch(option){
                 case 1:
-                    searchFlights();
+                    viewSchedule();
                     break;
                 case 2:
                     bookTickets();

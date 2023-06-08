@@ -35,8 +35,6 @@ public class AgentHomeConsole{
 
     public static void viewFlights(){
         System.out.println();
-        scn.nextLine();
-
         FlightJDBC.searchFlights();
     }
 

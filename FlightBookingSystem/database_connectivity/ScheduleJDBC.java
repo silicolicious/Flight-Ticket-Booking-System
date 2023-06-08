@@ -83,7 +83,7 @@ public class ScheduleJDBC{
 
                     int availableSeats = resultSet.getInt("availableSeats");
                     System.out.print(scheduleId + "\t" + flightNo + "\t" + departureCity + "\t" + arrivalCity + "\t");
-                    System.out.print(startTime + "\t" + endTime + "\t" + availableSeats);
+                    System.out.println(startTime + "\t" + endTime + "\t" + availableSeats);
                 }
             } catch(Exception e){
                 System.out.println(incorrectQuery);
